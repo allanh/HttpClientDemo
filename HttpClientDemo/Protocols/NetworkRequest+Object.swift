@@ -22,7 +22,7 @@ extension NetworkRequest {
     /// - parameter headers:    The HTTP headers.
     /// - parameter completion: The Response Handler.
     ///
-    func request<T>(
+    func request<T: Mappable>(
         _ url: URL,
         method: HTTPMethod,
         parameters: [String: Any]?,
@@ -30,26 +30,37 @@ extension NetworkRequest {
         headers: [String: String]?,
         completion: @escaping (Result<T>) -> Void)
         -> Void {
-            self.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers, completion: { (result) in
+            
+            self.requestJson(url, method: method, parameters: parameters, encoding: encoding, headers: headers, completion: { (jsonResult) in
                 
-                switch result {
-                case .success(let response):
-                    break
-                    // We will try to parse the JsonObject as an Json object.
-                    // Json object can contain an json object or json array.
-//                    guard let json = Json(json: response) else {
-//                        let error = NSError(
-//                            domain: "[AFHttpClient| request]",
-//                            code: 99902,
-//                            userInfo: ["description": "Cannot parse the JsonObject as an Json object."]
-//                        )
-//                        completion(.error(error))
-//                        return
-//                    }
-//                    
-//                    completion(.success(json))
+                switch jsonResult {
+                case .success(.object (let jsonObject)):
+                    // Success
+                    print("[NetworkRequest] jsonObject: \(jsonObject))")
+                    
+                    /// Maps a JSON dictionary to an object
+                    guard let parsedObject = Mapper<T>().map(JSON: jsonObject) else {
+                        let error = NSError(
+                            domain: "[NetworkRequest | request]",
+                            code: 99904,
+                            userInfo: ["description": "Conversion from JSON failed."]
+                        )
+                        completion(.error(error))
+                        return
+                    }
+                    
+                    completion(.success(parsedObject))
                     
                 case .error(let error):
+                    // Error Handling
+                    completion(.error(error))
+                    
+                default:
+                    let error = NSError(
+                        domain: "[HttpBinManager | getJsonObjectFromHttBin]",
+                        code: 99904,
+                        userInfo: ["description": "Can't get a json object."]
+                    )
                     completion(.error(error))
                 }
             }

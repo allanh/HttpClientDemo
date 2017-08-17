@@ -39,7 +39,7 @@ extension NetworkRequest {
                         let error = NSError(
                             domain: "[AFHttpClient| request]",
                             code: 99902,
-                            userInfo: ["description": "Cannot parse the JsonObject as an Json object."]
+                            userInfo: ["description": "Cannot parse the response as an Json object."]
                         )
                         completion(.error(error))
                         return

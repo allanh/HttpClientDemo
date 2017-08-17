@@ -14,10 +14,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        HttpBinManager.shared.getJsonObjectFromHttpBin(onSuccess: { (result) in
-            if let json = result {
-                print("[ViewController] Json Data: \(json.description)")
-            }
+//        HttpBinManager.shared.getJsonObjectFromHttpBin(onSuccess: { (result) in
+//            if let json = result {
+//                print("[ViewController] Json: \(json.description)")
+//            }
+//        }, onError: { (error) in
+//            print(error.localizedDescription)
+//        })
+        
+        HttpBinManager.shared.getHttpBinResponse(onSuccess: { (result) in
+                print("[ViewController] object: \(result?.url ?? "nil")")
         }, onError: { (error) in
             print(error.localizedDescription)
         })

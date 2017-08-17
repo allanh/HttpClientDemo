@@ -56,7 +56,7 @@ class HttpBinManager {
             let error = NSError(
                 domain: "[HttpBinManager | getJsonObjectFromHttBin]",
                 code: 99903,
-                userInfo: ["description": "Unable Create End Point."]
+                userInfo: ["description": "Cannot create endpoint."]
             )
             onError(error)
             return
@@ -85,8 +85,50 @@ class HttpBinManager {
                     let error = NSError(
                         domain: "[HttpBinManager | getJsonObjectFromHttBin]",
                         code: 99904,
-                        userInfo: ["description": "Unable Create End Point."]
+                        userInfo: ["description": "Can't get a json object."]
                     )
+                    onError(error)
+                }
+            }
+        )
+    }
+    
+    /// Get an HttpBinResponse from HttpBin server.
+    ///
+    /// - Parameters:
+    ///   - onSuccess: onSuccess closure
+    ///   - onError: return Error
+    public func getHttpBinResponse(onSuccess:@escaping (HttpBinResponse?)->(),
+                                         onError:@escaping(_ error:Error)->()) {
+        
+        // Setup 'url'
+        guard let url = HttpBin.get.url else {
+            let error = NSError(
+                domain: "[HttpBinManager | getJsonObjectFromHttBin]",
+                code: 99903,
+                userInfo: ["description": "Cannot create endpoint."]
+            )
+            onError(error)
+            return
+        }
+        
+        // Send Request
+        self.httpClient.request(
+            url,
+            method: .get,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: self.headers,
+            completion: { (result: Result<HttpBinResponse>) in
+                
+                switch result {
+                case .success(let response):
+                    // Success
+                    print("[HttpBinManager] respone: \(response)")
+                    onSuccess(response)
+                    
+                case .error(let error):
+                    // Error Handling
                     onError(error)
                 }
             }
