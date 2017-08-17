@@ -1,0 +1,6 @@
+framework module Pods_HttpClientDemoTests {
+  umbrella header "Pods-HttpClientDemoTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
