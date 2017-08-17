@@ -37,7 +37,7 @@ enum HttpBin : Int {
 class HttpBinManager {
     static let shared = HttpBinManager()
     
-    private var httpClient: NetworkRequest = AFHttpClient.shared
+    private var httpClient: NetworkRequest? = AFHttpClient.shared
     private let headers: HTTPHeaders = [
         "APIKey": "API_KEY",
         "Accept": "application/json"
@@ -63,7 +63,7 @@ class HttpBinManager {
         }
         
         // Send Request
-        self.httpClient.requestJson(
+        self.httpClient?.requestJson(
             url,
             method: .get,
             parameters: nil,
@@ -113,13 +113,13 @@ class HttpBinManager {
         }
         
         // Send Request
-        self.httpClient.request(
+        self.httpClient?.request(
             url,
             method: .get,
             parameters: nil,
             encoding: URLEncoding.default,
             headers: self.headers,
-            completion: { (result: Result<HttpBinResponse>) in
+            completion: { (result: HttpResult<HttpBinResponse>) in
                 
                 switch result {
                 case .success(let response):
@@ -138,7 +138,7 @@ class HttpBinManager {
     /// Set the Http Client.
     ///
     /// - Parameter networkRequest: A NetworkRequest instance
-    internal func setHttpClient(_ networkRequest: NetworkRequest) {
+    internal func setHttpClient(_ networkRequest: NetworkRequest?) {
         self.httpClient = networkRequest
     }
 }

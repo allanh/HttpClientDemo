@@ -1,5 +1,5 @@
 //
-//  Result.swift
+//  HttpResult.swift
 //  HttpClientDemo
 //
 //  Created by allan.shih on 2017/8/17.
@@ -13,7 +13,7 @@ import Foundation
 ///
 /// - success: A successfull result containing a return value.
 /// - error: A failure containing an error.
-enum Result<T> {
+enum HttpResult<T> {
     case success(T)
     case error(Error)
 }

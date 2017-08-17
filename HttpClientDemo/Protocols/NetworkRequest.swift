@@ -28,7 +28,7 @@ protocol NetworkRequest {
         parameters: [String: Any]?,
         encoding: ParameterEncoding,
         headers: [String: String]?,
-        completion: @escaping (Result<Any>) -> Void)
+        completion: @escaping (HttpResult<Any>) -> Void)
         -> Void
 }
 

@@ -27,7 +27,7 @@ extension NetworkRequest {
         parameters: [String: Any]?,
         encoding: ParameterEncoding,
         headers: [String: String]?,
-        completion: @escaping (Result<Json>) -> Void)
+        completion: @escaping (HttpResult<Json>) -> Void)
         -> Void {
             self.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers, completion: { (result) in
                 
