@@ -1,0 +1,16 @@
+{
+    "args": {},
+    "headers": {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4",
+        "Connection": "close",
+        "Cookie": "_gauges_unique_month=1; _gauges_unique_year=1; _gauges_unique=1; _gauges_unique_hour=1",
+        "Host": "httpbin.org",
+        "Referer": "http://httpbin.org/",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
+    },
+    "origin": "125.227.33.50",
+    "url": "http://httpbin.org/get"
+}
