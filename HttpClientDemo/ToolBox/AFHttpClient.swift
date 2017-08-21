@@ -41,21 +41,19 @@ class AFHttpClient : NetworkRequest {
                 .responseJSON(completionHandler: { (response) in
                     print("[AFHttpClient] response: \(response.result.debugDescription)")
                     
-                    switch response.result {
-                    case .success:
-                        guard let value = response.result.value else {
-                            let error = NSError(
-                                domain: "[AFHttpClient| request]",
-                                code: 99901,
-                                userInfo: ["description": "Cannot get the result."]
-                            )
-                            completion(.error(error))
-                            return
+                    do {
+                        switch response.result {
+                        case .success:
+                            guard let value = response.result.value else {
+                                throw ErrorType.RESPONSE_DATA_ERROR("AFHttpClient").error
+                            }
+
+                            completion(.success(value))
+
+                        case .failure(let error):
+                            throw error
                         }
-
-                        completion(.success(value))
-
-                    case .failure(let error):
+                    } catch let error {
                         // Error Handling
                         print(error.localizedDescription)
                         completion(.error(error))

@@ -33,34 +33,28 @@ extension NetworkRequest {
             
             self.requestJson(url, method: method, parameters: parameters, encoding: encoding, headers: headers, completion: { (jsonResult) in
                 
-                switch jsonResult {
-                case .success(.object (let jsonObject)):
-                    // Success
-                    print("[NetworkRequest] jsonObject: \(jsonObject))")
-                    
-                    /// Maps a JSON dictionary to an object
-                    guard let parsedObject = Mapper<T>().map(JSON: jsonObject) else {
-                        let error = NSError(
-                            domain: "[NetworkRequest | request]",
-                            code: 99904,
-                            userInfo: ["description": "Conversion from JSON failed."]
-                        )
-                        completion(.error(error))
-                        return
+                do {
+                    switch jsonResult {
+                    case .success(.object (let jsonObject)):
+                        // Success
+                        print("[NetworkRequest] jsonObject: \(jsonObject))")
+                        
+                        /// Maps a JSON dictionary to an object
+                        guard let parsedObject = Mapper<T>().map(JSON: jsonObject) else {
+                            throw ErrorType.CONVERT_JSON_TO_OBJECT_FAIL("NetworkRequest").error
+                        }
+                        
+                        completion(.success(parsedObject))
+                        
+                    case .error(let error):
+                        throw error
+                        
+                    default:
+                        throw ErrorType.UNKNOWN_ERROR("NetworkRequest").error
                     }
                     
-                    completion(.success(parsedObject))
-                    
-                case .error(let error):
+                } catch let error {
                     // Error Handling
-                    completion(.error(error))
-                    
-                default:
-                    let error = NSError(
-                        domain: "[HttpBinManager | getJsonObjectFromHttBin]",
-                        code: 99904,
-                        userInfo: ["description": "Can't get a json object."]
-                    )
                     completion(.error(error))
                 }
             }

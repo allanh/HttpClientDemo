@@ -47,13 +47,7 @@ class HttpClient : NetworkRequest {
                     let data = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
                     request.httpBody = data
                 } catch {
-                    let error = NSError(
-                        domain: "[HttpClient| request]",
-                        code: 99901,
-                        userInfo: ["description": "Cannot get the result."]
-                    )
-
-                    completion(.error(error))
+                    completion(.error(ErrorType.PARSE_JSON_FAIL("HttpClient").error))
                     return
                 }
             }
@@ -61,26 +55,16 @@ class HttpClient : NetworkRequest {
             self.uRLSession.dataTask(with: request) { (data, response, error) in
                 do {
                     guard let data = data else {
-                        let error = NSError(
-                            domain: "[HttpClient| request]",
-                            code: 99901,
-                            userInfo: ["description": "Cannot get the result."]
-                        )
-                        throw error
+                        throw ErrorType.RESPONSE_DATA_ERROR("HttpClient").error
                     }
                     
                     guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                        let error = NSError(
-                            domain: "[HttpClient| request]",
-                            code: 99901,
-                            userInfo: ["description": "Cannot get the result."]
-                        )
-                        throw error
+                        throw ErrorType.PARSE_JSON_FAIL("HttpClient").error
                     }
                     
                     completion(.success(json))
-                }
-                catch let error {
+                    
+                } catch let error {
                     // Error Handling
                     // Notify client app the log out process failed
                     completion(.error(error))

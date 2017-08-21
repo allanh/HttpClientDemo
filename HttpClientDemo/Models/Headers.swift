@@ -27,11 +27,11 @@ class Headers: Mappable {
     }
     
     func mapping(map: Map) {
-        self.accept <- map["Accept"]
-        self.acceptEncoding <- map["Accept-Encoding"]
-        self.acceptLanguage <- map["Accept-Language"]
-        self.connection <- map["Connection"]
-        self.cookie <- map["Cookie"]
+        self.accept                     <- map["Accept"]
+        self.acceptEncoding             <- map["Accept-Encoding"]
+        self.acceptLanguage             <- map["Accept-Language"]
+        self.connection                 <- map["Connection"]
+        self.cookie                     <- map["Cookie"]
         self.host                       <- map["Host"]
         self.referer                    <- map["Referer"]
         self.upgradeInsecureRequests    <- map["Upgrade-Insecure-Requests"]
