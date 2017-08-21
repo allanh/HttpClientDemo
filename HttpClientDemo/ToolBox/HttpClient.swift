@@ -12,6 +12,8 @@ import Alamofire
 class HttpClient : NetworkRequest {
     static let shared = HttpClient()
     
+    private var uRLSession = URLSession.shared
+    
     /// Creates a request to retrieve the contents of the specified `url`,
     /// `method`, `parameters`, `encoding` and `headers`.
     ///
@@ -31,36 +33,58 @@ class HttpClient : NetworkRequest {
         completion: @escaping (HttpResult<Any>) -> Void)
         -> Void {
             
-        
-//            Alamofire.request(
-//                url,
-//                method: method,
-//                parameters: parameters,
-//                encoding: encoding,
-//                headers: headers)
-//                .validate()
-//                .responseJSON(completionHandler: { (response) in
-//                    print("[AFHttpClient] response: \(response.result.debugDescription)")
-//                    
-//                    switch response.result {
-//                    case .success:
-//                        guard let value = response.result.value else {
-//                            let error = NSError(
-//                                domain: "[AFHttpClient| request]",
-//                                code: 99901,
-//                                userInfo: ["description": "Cannot get the result."]
-//                            )
-//                            completion(.error(error))
-//                            return
-//                        }
-//                        
-//                        completion(.success(value))
-//                        
-//                    case .failure(let error):
-//                        // Error Handling
-//                        print(error.localizedDescription)
-//                        completion(.error(error))
-//                    }
-//                })
+            var request = URLRequest(url: url)
+            request.httpMethod = method.rawValue
+            
+            if let headers = headers {
+                for (key, value) in headers {
+                    request.addValue(value, forHTTPHeaderField: key)
+                }
+            }
+            
+            if let parameters = parameters {
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+                    request.httpBody = data
+                } catch {
+                    let error = NSError(
+                        domain: "[HttpClient| request]",
+                        code: 99901,
+                        userInfo: ["description": "Cannot get the result."]
+                    )
+
+                    completion(.error(error))
+                    return
+                }
+            }
+            
+            self.uRLSession.dataTask(with: request) { (data, response, error) in
+                do {
+                    guard let data = data else {
+                        let error = NSError(
+                            domain: "[HttpClient| request]",
+                            code: 99901,
+                            userInfo: ["description": "Cannot get the result."]
+                        )
+                        throw error
+                    }
+                    
+                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                        let error = NSError(
+                            domain: "[HttpClient| request]",
+                            code: 99901,
+                            userInfo: ["description": "Cannot get the result."]
+                        )
+                        throw error
+                    }
+                    
+                    completion(.success(json))
+                }
+                catch let error {
+                    // Error Handling
+                    // Notify client app the log out process failed
+                    completion(.error(error))
+                }
+            }.resume()
     }
 }
