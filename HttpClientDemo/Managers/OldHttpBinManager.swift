@@ -27,12 +27,7 @@ class OldHttpBinManager {
         
         // Setup 'url'
         guard let url = HttpBin.get.url else {
-            let error = NSError(
-                domain: "[HttpBinManager | getJsonObjectFromHttBin]",
-                code: 99903,
-                userInfo: ["description": "Cannot create endpoint."]
-            )
-            onError(error)
+            onError(ErrorType.UNABLE_TO_CREATE_END_POINT("HttpBinManager").error)
             return
         }
         
@@ -56,12 +51,7 @@ class OldHttpBinManager {
                     onError(error)
                     
                 default:
-                    let error = NSError(
-                        domain: "[HttpBinManager | getJsonObjectFromHttBin]",
-                        code: 99904,
-                        userInfo: ["description": "Can't get a json object."]
-                    )
-                    onError(error)
+                    onError(ErrorType.UNKNOWN_ERROR("HttpBinManager").error)
                 }
             }
         )
@@ -77,12 +67,7 @@ class OldHttpBinManager {
         
         // Setup 'url'
         guard let url = HttpBin.get.url else {
-            let error = NSError(
-                domain: "[HttpBinManager | getJsonObjectFromHttBin]",
-                code: 99903,
-                userInfo: ["description": "Cannot create endpoint."]
-            )
-            onError(error)
+            onError(ErrorType.UNABLE_TO_CREATE_END_POINT("HttpBinManager").error)
             return
         }
         

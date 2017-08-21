@@ -31,23 +31,18 @@ extension NetworkRequest {
         -> Void {
             self.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers, completion: { (result) in
                 
-                switch result {
-                case .success(let response):
-                    // We will try to parse the JsonObject as an Json object.
-                    // Json object can contain an json object or json array.
-                    guard let json = Json(json: response) else {
-                        let error = NSError(
-                            domain: "[AFHttpClient| request]",
-                            code: 99902,
-                            userInfo: ["description": "Cannot parse the response as an Json object."]
-                        )
-                        completion(.error(error))
-                        return
+                do {
+                    switch result {
+                    case .success(let response):
+                        // We will try to parse the JsonObject as an Json object.
+                        // Json object can contain an json object or json array.
+                        let json = try self.parseJson(response)
+                        completion(.success(json))
+                        
+                    case .error(let error):
+                        throw error
                     }
-                    
-                    completion(.success(json))
-                    
-                case .error(let error):
+                } catch let error {
                     completion(.error(error))
                 }
             }

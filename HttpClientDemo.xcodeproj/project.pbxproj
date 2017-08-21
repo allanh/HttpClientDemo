@@ -32,6 +32,8 @@
 		3FB4C9E51F46BB0700EB44FE /* JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4C9E41F46BB0700EB44FE /* JsonParser.swift */; };
 		3FB4C9E81F46BFE100EB44FE /* JsonParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4C9E71F46BFE100EB44FE /* JsonParserTests.swift */; };
 		3FB4C9E91F46C44D00EB44FE /* GetResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 3FB4C9DE1F467CB400EB44FE /* GetResponse.json */; };
+		3FF89F271F4A7776006116F6 /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF89F261F4A7776006116F6 /* ErrorType.swift */; };
+		3FF89F291F4A7CAD006116F6 /* NetworkRequest+ParseAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF89F281F4A7CAD006116F6 /* NetworkRequest+ParseAble.swift */; };
 		C96A7EA0C467404B75B7C347 /* Pods_HttpClientDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA62BD42F82A19DA383FD654 /* Pods_HttpClientDemoTests.framework */; };
 		DD2D0B8C7832958C6351F592 /* Pods_HttpClientDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A50966C375F0044A0E4D87F /* Pods_HttpClientDemo.framework */; };
 /* End PBXBuildFile section */
@@ -86,6 +88,8 @@
 		3FB4C9DE1F467CB400EB44FE /* GetResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GetResponse.json; sourceTree = "<group>"; };
 		3FB4C9E41F46BB0700EB44FE /* JsonParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonParser.swift; sourceTree = "<group>"; };
 		3FB4C9E71F46BFE100EB44FE /* JsonParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonParserTests.swift; sourceTree = "<group>"; };
+		3FF89F261F4A7776006116F6 /* ErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
+		3FF89F281F4A7CAD006116F6 /* NetworkRequest+ParseAble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NetworkRequest+ParseAble.swift"; sourceTree = "<group>"; };
 		8A50966C375F0044A0E4D87F /* Pods_HttpClientDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpClientDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A69A2896345309890F69B786 /* Pods-HttpClientDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HttpClientDemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HttpClientDemoUITests/Pods-HttpClientDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CA62BD42F82A19DA383FD654 /* Pods_HttpClientDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HttpClientDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +245,7 @@
 				3FB141041F452FB8005EFA50 /* HttpClient.swift */,
 				3FB141061F452FC4005EFA50 /* AFHttpClient.swift */,
 				3FB4C9E41F46BB0700EB44FE /* JsonParser.swift */,
+				3FF89F261F4A7776006116F6 /* ErrorType.swift */,
 			);
 			path = ToolBox;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				3FB141001F452DD9005EFA50 /* NetworkRequest.swift */,
 				3FB1410A1F456EFC005EFA50 /* NetworkRequest+Json.swift */,
 				3FB1410C1F456F6E005EFA50 /* NetworkRequest+Object.swift */,
+				3FF89F281F4A7CAD006116F6 /* NetworkRequest+ParseAble.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -602,12 +608,14 @@
 				3FB141031F452E20005EFA50 /* HttpResult.swift in Sources */,
 				3FB1410D1F456F6E005EFA50 /* NetworkRequest+Object.swift in Sources */,
 				3F97EF7F1F4581CD004DB1D6 /* HttpBinResponse.swift in Sources */,
+				3FF89F291F4A7CAD006116F6 /* NetworkRequest+ParseAble.swift in Sources */,
 				3FB140CA1F4527B9005EFA50 /* ViewController.swift in Sources */,
 				3FB141091F45345F005EFA50 /* HttpBinManager.swift in Sources */,
 				3FB141011F452DD9005EFA50 /* NetworkRequest.swift in Sources */,
 				3FB141051F452FB8005EFA50 /* HttpClient.swift in Sources */,
 				3FB141071F452FC4005EFA50 /* AFHttpClient.swift in Sources */,
 				3FB140C81F4527B9005EFA50 /* AppDelegate.swift in Sources */,
+				3FF89F271F4A7776006116F6 /* ErrorType.swift in Sources */,
 				3FB4C9E51F46BB0700EB44FE /* JsonParser.swift in Sources */,
 				3F97EF7E1F4581CD004DB1D6 /* Headers.swift in Sources */,
 			);

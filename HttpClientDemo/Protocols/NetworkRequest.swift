@@ -8,8 +8,13 @@
 
 import Foundation
 import Alamofire
+import ObjectMapper
 
-protocol NetworkRequest {
+protocol Parseable {
+    func parseJson(_ response: Any) throws -> Json
+}
+
+protocol NetworkRequest: Parseable {
     var response: Any? { get set }
 
     /// Creates a request to retrieve the contents of the specified `url`,
@@ -29,6 +34,24 @@ protocol NetworkRequest {
         encoding: ParameterEncoding,
         headers: [String: String]?,
         completion: @escaping (HttpResult<Any>) -> Void)
+        -> Void
+    
+    func request<T: Mappable>(
+        _ url: URL,
+        method: HTTPMethod,
+        parameters: [String: Any]?,
+        encoding: ParameterEncoding,
+        headers: [String: String]?,
+        completion: @escaping (HttpResult<T>) -> Void)
+        -> Void
+    
+    func requestJson(
+        _ url: URL,
+        method: HTTPMethod,
+        parameters: [String: Any]?,
+        encoding: ParameterEncoding,
+        headers: [String: String]?,
+        completion: @escaping (HttpResult<Json>) -> Void)
         -> Void
 }
 
