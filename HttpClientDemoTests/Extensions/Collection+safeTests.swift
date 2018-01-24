@@ -14,6 +14,7 @@ class Collection_safeTests: XCTestCase {
     // MARK: - Mocks
     
     let testArry = ["0", "1", "2", "3", "4"]
+    let array = [1, 3, 4, 6 ,7 ,8 ,9]
 
     // MARK: - Setup and tearDown
     
@@ -26,7 +27,29 @@ class Collection_safeTests: XCTestCase {
     }
     
     // MARK: - Tests
-
+    
+    func testCollectionSafeIndex_whenIndexIs4_refurnElement() {
+        // 1. Arrange
+        var test = -1
+        
+        // 2. Act
+        test = array[safe: 4] ?? -1
+        
+        // 3. Assert
+        XCTAssertEqual(test, 7, "Test should be 7.")
+    }
+    
+    func testCollectionSafeIndex_whenIndexIs7_refurnElement() {
+        // 1. Arrange
+        var test: Int? = nil
+        
+        // 2. Act
+        test = array[safe: 77]
+        
+        // 3. Assert
+        XCTAssertNil(test, "Test should be nil.")
+    }
+    
     func testCollectionSafeIndex_useASpecifiedIndex_refurnElement() {
         // 1. Arrange
         let testElement: String?

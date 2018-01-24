@@ -40,7 +40,6 @@ class HttpBinManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         self.httpClient = MockHttpClient()
-        self.httpClient?.response = self.mockResponse
 
         self.manager = HttpBinManager()
         self.manager?.setHttpClient(self.httpClient ?? MockHttpClient())
@@ -63,6 +62,7 @@ class HttpBinManagerTests: XCTestCase {
         }
         
         // 2. Act
+        self.httpClient?.response = self.mockResponse
         self.httpClient?.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil, completion: { (result) in
                 switch result {
                 case .success(let response):
@@ -89,6 +89,7 @@ class HttpBinManagerTests: XCTestCase {
         var jsonObject: JsonObject? = nil
         
         // 2. Act
+        self.httpClient?.response = self.mockResponse
         self.manager?.setHttpClient(self.httpClient)
         self.manager?.getJsonObjectFromHttpBin(onSuccess: { (result) in
             jsonObject = result

@@ -48,6 +48,8 @@ class NetworkRequestTests: XCTestCase {
         }
     }
     
+    // MARK: - Properties 
+    
     var httpClient: NetworkRequest?
     
     let mockResponse: JsonObject = [
@@ -55,6 +57,8 @@ class NetworkRequestTests: XCTestCase {
         "email": "em@il.com",
         "age": 30
     ]
+    
+    // MARK: - Methods
     
     override func setUp() {
         super.setUp()
