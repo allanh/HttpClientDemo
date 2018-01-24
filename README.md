@@ -49,7 +49,7 @@ func testGetJsonObjectFromHttpBin_useFakeResponse_returnJson() {
     XCTAssertNotNil(jsonObject?["username"], "The jsonObject doesn't contain username key.")
     XCTAssertEqual(jsonObject?["username"] as? String, "Rodrigo", "The username shoudl be Rodrigo.")
     XCTAssertNotNil(jsonObject?["email"], "The jsonObject doesn't contain email key.")
-    XCTAssertEqual(jsonObject?["email"] as? String, "em@il.com", "The age shoudl be em@il.com.")
+    XCTAssertEqual(jsonObject?["email"] as? String, "em@il.com", "The email shoudl be em@il.com.")
     XCTAssertNotNil(jsonObject?["age"], "The jsonObject doesn't contain age key.")
     XCTAssertEqual(jsonObject?["age"] as? Int, 29, "The age shoudl be 29.")
 }
