@@ -1,4 +1,4 @@
-# HttpClientDemo
+# HttpClient Demo
 Http library demo for https://httpbin.org
 
 ## Usage
